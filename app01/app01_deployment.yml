@@ -19,11 +19,6 @@ spec:
       containers:
       - name: nginx
         image: nginx:latest
-        resources:
-          requests:
-            memory: 0.5Gi
-          limits:
-            cpu: 100m
         ports:
           - containerPort: 80
         volumeMounts:
