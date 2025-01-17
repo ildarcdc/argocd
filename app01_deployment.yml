@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: app01
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      namespace: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        resources:
+          requests:
+            memory: 0.5Gi
+          limits:
+            cpu: 100m
+        ports:
+          - containerPort: 80
+        volumeMounts:
+        - name: nginx-index-config
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: nginx-index-config
+        configMap:
+          name: nginx-config-1
